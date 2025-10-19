@@ -134,13 +134,23 @@ int main() {
     line.print();
 
     // Simulation for 20 mintes
-
-
-        // 40% chance: customer is served
-
+    for (int minute = 2; minute <= 20; minute++) {
+        cout << "Time step #" << minute << ":" << endl;
+    
+    // 40% chance: customer is served
+        int prob = rand() % 100 + 1;
+        if (prob <= 40 && !line.empty()) {
+            cout << "     " << line.front() << " is served" << endl;
+            line.pop_front();
+        }
 
         // 60% chance: new customer joins
-
+        prob = rand() % 100 + 1;
+        if (prob <= 60) {
+            string newCustomer = names[rand() % names.size()];
+            cout << "     " << newCustomer << " joins the line" << endl;
+            line.push_back(newCustomer);
+        }
 
         // 20% chance: rear customer leaves
 
@@ -154,6 +164,7 @@ int main() {
         // Show resulting line
         cout << "Resulting line:" << endl;
         line.print();
+    }
 
         return 0;
 }
