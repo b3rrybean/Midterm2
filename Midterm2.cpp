@@ -196,6 +196,7 @@ int main() {
         prob = rand() % 100 + 1;
         if (prob <= 10 && line.size() > 2) {
                 int pos = rand() % (line.size() - 2) + 2;
+                cout << "     Random customer: ";
                 line.delete_pos(pos);
             }
 
