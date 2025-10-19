@@ -15,7 +15,7 @@ private:
         Node* prev;
         Node* next;
 
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
+        Node(string val, Node* p = nullptr, Node* n = nullptr) {
             data = val;
             prev = p;
             next = n;
@@ -103,26 +103,57 @@ public:
             delete temp;
         }
     }
+};
 
 int main() {
     srand(time(0));
 
     // Load names
+    vector<string> names;
+    ifstream file("names.txt");
+    if (!file) {
+        cout << "Could not open names.txt" << endl;
+        return 1;
+    }
+    string name;
+    while (file >> name)
+        names.push_back(name);
+    file.close();
 
     // Coffee shop line
+    DoublyLinkedList line;
+
+    cout << "Store opens:" << endl;
+    for (int i = 0; i < 5; i++) {
+        string customer = names[rand() % names.size()];
+        line.push_back(customer);
+        cout << "     " << customer << " joins the line" << endl;
+    }
+
+    cout << "Resulting line:" << endl;
+    line.print();
 
     // Simulation for 20 mintes
 
+
         // 40% chance: customer is served
+
 
         // 60% chance: new customer joins
 
+
         // 20% chance: rear customer leaves
+
 
         // 10% random customer leaves
 
+
         // 10% VIP skip line
 
-        // Show resulting line
 
+        // Show resulting line
+        cout << "Resulting line:" << endl;
+        line.print();
+
+        return 0;
 }
