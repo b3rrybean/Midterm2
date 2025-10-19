@@ -31,6 +31,16 @@ public:
         tail = nullptr;
     }
 
+    int size() {
+        int count = 0;
+        Node* temp = head;
+        while(temp) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
     void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
@@ -156,7 +166,7 @@ int main() {
     cout << "Resulting line:" << endl;
     line.print();
 
-    // Simulation for 20 mintes
+    // Simulation for 20 minutes
     for (int minute = 2; minute <= SIM_TIME; minute++) {
         cout << "Time step #" << minute << ":" << endl;
     
@@ -183,13 +193,18 @@ int main() {
         }
 
         // 10% random customer leaves
-
+        prob = rand() % 100 + 1;
+        if (prob <= 10 && line.size() > 2) {
+                int pos = rand() % (line.size() - 2) + 2;
+                cout << "" << endl;
+                line.delete_pos(pos);
+            }
 
         // 10% VIP skip line
         prob = rand() % 100 + 1;
         if (prob <= 10) {
             string vip = names[rand() % names.size()];
-            cout << "     " << vip << " (VIP) joing the front of the line" << endl;
+            cout << "     " << vip << " (VIP) joins the front of the line" << endl;
             line.push_front(vip);
         }
 
