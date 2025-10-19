@@ -77,6 +77,25 @@ public:
         delete temp;
     }
 
+    bool empty() { return head == nullptr; }
+
+    string front() { return head ? head->data : ""; }
+    string back() { return tail ? tail->data : ""; }
+
+    void print() {
+        Node* current = head;
+        if (!current) {
+            cout << "     (empty)" << endl;
+            return;
+        }
+
+        while (current) {
+            cout << current->data << "    ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
     ~DoublyLinkedList() {
         while (head) {
             Node* temp = head;
@@ -85,36 +104,25 @@ public:
         }
     }
 
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
-        }
-        cout << endl;
-    }
-};
-
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
-    return 0;
+    srand(time(0));
+
+    // Load names
+
+    // Coffee shop line
+
+    // Simulation for 20 mintes
+
+        // 40% chance: customer is served
+
+        // 60% chance: new customer joins
+
+        // 20% chance: rear customer leaves
+
+        // 10% random customer leaves
+
+        // 10% VIP skip line
+
+        // Show resulting line
+
 }
