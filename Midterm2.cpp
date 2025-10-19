@@ -6,7 +6,7 @@
 #include <ctime>
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int SIM_TIME = 20;
 
 class DoublyLinkedList {
 private:
@@ -77,6 +77,29 @@ public:
         delete temp;
     }
 
+    void delete_pos(int pos) {
+    if (!head) return;
+
+    Node* temp = head;
+    int count = 1;
+
+    while (temp && count < pos) {
+        temp = temp->next;
+        count++;
+    }
+
+    if (!temp) return;
+
+    if (temp->prev) temp->prev->next = temp->next;
+    else head = temp->next; // front node
+
+    if (temp->next) temp->next->prev = temp->prev;
+    else tail = temp->prev; // back node
+
+    cout << "    " << temp->data << " left the line\n";
+    delete temp;
+}
+
     bool empty() { return head == nullptr; }
 
     string front() { return head ? head->data : ""; }
@@ -134,7 +157,7 @@ int main() {
     line.print();
 
     // Simulation for 20 mintes
-    for (int minute = 2; minute <= 20; minute++) {
+    for (int minute = 2; minute <= SIM_TIME; minute++) {
         cout << "Time step #" << minute << ":" << endl;
     
     // 40% chance: customer is served
@@ -153,13 +176,22 @@ int main() {
         }
 
         // 20% chance: rear customer leaves
-
+        prob = rand() % 100 + 1;
+        if (prob <= 20 && !line.empty()) {
+            cout << "     " << line.back() << " (at the rear) left the line" << endl;
+            line.pop_back();
+        }
 
         // 10% random customer leaves
 
 
         // 10% VIP skip line
-
+        prob = rand() % 100 + 1;
+        if (prob <= 10) {
+            string vip = names[rand() % names.size()];
+            cout << "     " << vip << " (VIP) joing the front of the line" << endl;
+            line.push_front(vip);
+        }
 
         // Show resulting line
         cout << "Resulting line:" << endl;
